@@ -13,16 +13,16 @@ resource "local_file" "private_key" {
 
 output "id" {
   description = "A randomly generated UUID to identify this module run from others"
-  value = random_uuid.synclounge.result
+  value       = random_uuid.synclounge.result
 }
 
 output "public_ip" {
   description = "The public IP of the launched instance"
-  value = local.public_ip
+  value       = local.public_ip
 }
 
 output "private_key" {
   description = "The unique private key for the launched instance"
-  sensitive = true
-  value     = tls_private_key.synclounge.private_key_pem
+  sensitive   = true
+  value       = tls_private_key.synclounge.private_key_pem
 }

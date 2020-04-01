@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+  synclounge:
+    environment:
+      - AUTOJOIN_ENABLED
+      - AUTOJOIN_PASSWORD
+      - AUTOJOIN_ROOM
+      - AUTOJOIN_SERVERURL
+      - WEB_ACCESSURL
+    image: starbix/synclounge:latest
+    restart: on-failure
+  proxy:
+    depends_on:
+      - synclounge
+    image: haproxy:latest
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: /opt/synclounge/haproxy
+        target: /usr/local/etc/haproxy
